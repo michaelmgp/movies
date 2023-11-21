@@ -55,11 +55,19 @@ public class MovieService implements BaseService<Movie> {
         if(!movieOptional.isPresent()){
             throw new NotFoundException("Movie with corresponding id " + id + " did not exist ");
         }
-
-        Movie movie = movieOptional.get().builder().image(movieDTO.getImage())
-                                                    .title(movieDTO.getTitle())
-                                                    .rating(movieDTO.getRating())
-                .description(movieDTO.getDescription()).build();
+        Movie movie = movieOptional.get();
+        if(movieDTO.getTitle()!=null){
+            movie.setTitle(movieDTO.getTitle());
+        }
+        if(movieDTO.getImage()!=null){
+            movie.setImage(movieDTO.getImage());
+        }
+        if(movieDTO.getDescription()!=null){
+            movie.setDescription(movieDTO.getDescription());
+        }
+        if(movieDTO.getTitle()!=null){
+            movie.setTitle(movieDTO.getTitle());
+        }
         movieRepository.save(movie);
 
         return response.success(movie);
